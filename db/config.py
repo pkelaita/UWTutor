@@ -6,7 +6,7 @@ USER_COL = f'user-col-{UWT_ENV}'
 COURSE_COL = f'course-col-{UWT_ENV}'
 SESSION_COL = f'session-col-{UWT_ENV}'
 
-COLLECTIONS = {USER_COL, COURSE_COL, SESSION_COL}
+collections = {USER_COL, COURSE_COL, SESSION_COL}
 
 schemas = {
     USER_COL: {'$jsonSchema': {
