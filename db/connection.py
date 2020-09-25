@@ -1,6 +1,6 @@
-from pymongo import MongoClient
 from collections import OrderedDict
-import config
+from . import config
+import pymongo
 
 
 class DBConnection:
@@ -11,7 +11,7 @@ class DBConnection:
         self.db = None
 
     def __enter__(self):
-        self.client = MongoClient(self.host, self.port)
+        self.client = pymongo.MongoClient(self.host, self.port)
         self.db = self.client[config.DB_NAME]
         cols = self.db.list_collection_names()
         for colname in config.collections:
