@@ -1,4 +1,5 @@
 from pymongo import MongoClient
+from collections import OrderedDict
 from config import *
 
 
@@ -9,4 +10,9 @@ def initialize(host=DB_HOST, port=DB_PORT):
     for colname in COLLECTIONS:
         if colname not in cols:
             db.create_collection(colname)
+            cmd = OrderedDict([
+                ('collMod', colname),
+                ('validator', schemas[colname])
+            ])
+            db.command(cmd)
     return db
