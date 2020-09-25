@@ -15,6 +15,9 @@ venv.bak/
 # Apple fanboy trash
 .DS_Store
 
+# Test coverage
+.coverage
+
 # IDE stuff
 .idea/
 .vscode/
