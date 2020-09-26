@@ -12,31 +12,19 @@ schemas = {
     USER_COL: {'$jsonSchema': {
         'bsonType': 'object',
         'required': [
-            'tutor_ratings',
-            'client_ratings',
+            'name',
             'auth_netid',
             'auth_token',
+            'is_client',
+            'is_tutor',
             'course_hashes'
         ],
         'properties': {
-            'tutor_ratings': {
-                'bsonType': 'array',
-                'items': {
-                    'bsonType': 'int',
-                    'minimum': 1,
-                    'maximum': 5,
-                },
-            },
-            'client_ratings': {
-                'bsonType': 'array',
-                'items': {
-                    'bsonType': 'int',
-                    'minimum': 1,
-                    'maximum': 5,
-                },
-            },
+            'name': {'bsonType': 'string'},
             'auth_netid': {'bsonType': 'string'},
             'auth_token': {'bsonType': 'string'},
+            'is_client': {'bsonType': 'bool'},
+            'is_tutor': {'bsonType': 'bool'},
             'course_hashes': {
                 'bsonType': 'array',
                 'items': {'bsonType': 'string'},
@@ -58,14 +46,14 @@ schemas = {
             'tutor_hash',
             'client_zoom_id',
             'tutor_zoom_id',
-            'outcomes',
+            'duration',
         ],
         'properties': {
             'client_hash': {'bsonType': 'string'},
             'tutor_hash': {'bsonType': 'string'},
             'client_zoom_id': {'bsonType': 'string'},
             'tutor_zoom_id': {'bsonType': 'string'},
-            'outcomes': {'enum': [1, 2, 3, 4]}
+            'duration': {'bsonType': 'double'},
         },
     }},
 }
