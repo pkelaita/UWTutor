@@ -1,5 +1,5 @@
-from db.connection import DBConnection
-from db import config
+from server.db.connection import DBConnection
+from server.db import config
 import mongomock
 
 from unittest.mock import patch
