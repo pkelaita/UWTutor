@@ -7,6 +7,7 @@ import store from './store';
 import * as serviceWorker from './serviceWorker';
 
 import './index.css';
+import App from './App';
 
 ReactDOM.render(
     <Provider store={store()}>
@@ -14,5 +15,3 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
-
-serviceWorker.unregister();

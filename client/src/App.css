@@ -1,5 +1,5 @@
 .App {
-    text-align: left;
+  text-align: center;
 }
 
 .App-header {
@@ -15,17 +15,4 @@
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
-}
-
-.ui-display {
-    margin-left: 3%;
-    margin-right: 3%;
-    padding-top: 20px;
-    padding-bottom: 30px;
-    text-align: center;
-    object-fit: contain;
-}
-
-#ui-canvas {
-    max-height: 850px;
 }

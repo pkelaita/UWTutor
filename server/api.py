@@ -1,12 +1,31 @@
+from flask import Flask, make_response  # , request
+from flask_cors import CORS
+import json
 
-from flask import Blueprint
+from db.connection import DBConnection
+import config
+
+app = Flask(__name__)
+app.config.from_pyfile('config.py')
+CORS(app)
 
 
-register_bp = Blueprint('register', __name__, url_prefix='/register')
-auth_bp = Blueprint('auth', __name__, url_prefix='/auth')
-sessions_bp = Blueprint('sessions', __name__, url_prefix='/sessions')
-payments_bp = Blueprint('payments', __name__, url_prefix='/payments')
-# An example for us
-# @auth_bp.route('/authorize')
-# def get_name():
-#     return db.get_name()
+def tojson(res):
+    r = make_response(json.dumps(res))
+    r.mimetype = 'application/json'
+    return r
+
+
+@app.route('/dbinfo', methods=['GET'])
+def info():
+    info = {}
+    with DBConnection() as conn:
+        db = conn.db
+        info['db_host'] = db.client.HOST
+        info['db_port'] = db.client.PORT
+        info['collections'] = db.list_collection_names()
+    return tojson(info)
+
+
+if __name__ == '__main__':
+    app.run(host=config.API_HOST, port=config.API_PORT)
