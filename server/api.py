@@ -1,31 +1,30 @@
-from flask import Flask, make_response  # , request
+from flask import Flask
 from flask_cors import CORS
-import json
 
+from api_utils import tojson
 from db.connection import DBConnection
-import config
+import config as api_config
+
+from routes.users import users_bp
 
 app = Flask(__name__)
-app.config.from_pyfile('config.py')
+app.config.from_object('config.BaseConfig')
 CORS(app)
 
 
-def tojson(res):
-    r = make_response(json.dumps(res))
-    r.mimetype = 'application/json'
-    return r
-
-
-@app.route('/dbinfo', methods=['GET'])
+@app.route('/', methods=['GET'])
 def info():
-    info = {}
+    res = {}
     with DBConnection() as conn:
         db = conn.db
-        info['db_host'] = db.client.HOST
-        info['db_port'] = db.client.PORT
-        info['collections'] = db.list_collection_names()
-    return tojson(info)
+        res['db_host'] = db.client.HOST
+        res['db_port'] = db.client.PORT
+        res['collections'] = db.list_collection_names()
+    return tojson(res)
 
+
+# Attach routes
+app.register_blueprint(users_bp)
 
 if __name__ == '__main__':
-    app.run(host=config.API_HOST, port=config.API_PORT)
+    app.run(host=api_config.API_HOST, port=api_config.API_PORT)
