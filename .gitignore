@@ -18,6 +18,9 @@ venv.bak/
 # Test coverage
 .coverage
 
+# Javascript
+.eslintcache
+
 # IDE stuff
 .idea/
 .vscode/
