@@ -26,5 +26,6 @@ def info():
         info['collections'] = db.list_collection_names()
     return tojson(info)
 
+
 if __name__ == '__main__':
     app.run(host=config.API_HOST, port=config.API_PORT)
