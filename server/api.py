@@ -3,7 +3,6 @@ from flask_cors import CORS
 
 from api_utils import tojson
 from db.connection import DBConnection
-import db.config as db_config
 import config as api_config
 
 from routes.users import users_bp
