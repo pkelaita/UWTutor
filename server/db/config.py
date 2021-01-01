@@ -12,20 +12,20 @@ schemas = {
     USER_COL: {'$jsonSchema': {
         'bsonType': 'object',
         'required': [
+            '_id',  # NetID
             'name',
-            'auth_netid',
             'auth_token',
             'is_client',
             'is_tutor',
-            'course_hashes'
+            'course_ids'
         ],
         'properties': {
+            '_id': {'bsonType': 'string'},
             'name': {'bsonType': 'string'},
-            'auth_netid': {'bsonType': 'string'},
             'auth_token': {'bsonType': 'string'},
             'is_client': {'bsonType': 'bool'},
             'is_tutor': {'bsonType': 'bool'},
-            'course_hashes': {
+            'course_ids': {
                 'bsonType': 'array',
                 'items': {'bsonType': 'string'},
             },

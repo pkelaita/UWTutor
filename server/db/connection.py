@@ -14,6 +14,8 @@ class DBConnection:
         self.client = pymongo.MongoClient(self.host, self.port)
         self.db = self.client[config.DB_NAME]
         cols = self.db.list_collection_names()
+
+        # Ensure collections exist
         for colname in config.collections:
             if colname not in cols:
                 self.db.create_collection(colname)
@@ -23,6 +25,7 @@ class DBConnection:
                     ('validationLevel', 'moderate'),
                 ])
                 self.db.command(cmd)
+
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
