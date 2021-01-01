@@ -34,25 +34,23 @@ schemas = {
     }},
     COURSE_COL: {'$jsonSchema': {
         'bsonType': 'object',
-        'required': ['course_name'],
+        'required': ['_id'],  # Course Name
         'properties': {
-            'course_name': {'bsonType': 'string'},
+            '_id': {'bsonType': 'string'},
         },
     }},
     SESSION_COL: {'$jsonSchema': {
         'bsonType': 'object',
         'required': [
-            'client_hash',
-            'tutor_hash',
-            'client_zoom_id',
-            'tutor_zoom_id',
+            'client_id',
+            'tutor_id',
+            'course_id',
             'duration',
         ],
         'properties': {
-            'client_hash': {'bsonType': 'string'},
-            'tutor_hash': {'bsonType': 'string'},
-            'client_zoom_id': {'bsonType': 'string'},
-            'tutor_zoom_id': {'bsonType': 'string'},
+            'client_id': {'bsonType': 'string'},
+            'tutor_id': {'bsonType': 'string'},
+            'course_id': {'bsonType': 'string'},
             'duration': {'bsonType': 'double'},
         },
     }},
