@@ -12,4 +12,4 @@
 * `python server/api.py`
 
 ### Client Setup
-* `cd client && npm start`
+* `cd client && npm i && npm start`
