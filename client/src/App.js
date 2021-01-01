@@ -5,15 +5,15 @@ function App() {
     <div className="App">
       <header className="App-header">
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          Hello bitchass world! <br></br> Welcome to UWTutor, an online, instant tutoring service for the University of Washington.
         </p>
         <a
           className="App-link"
-          href="https://reactjs.org"
+          href="http://bitly.com/98K8eH"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          Find a tutor to get started!
         </a>
       </header>
     </div>
