@@ -42,7 +42,7 @@ def sessions_update(session_id):
     data = dict(request.get_json())
     with DBConnection() as conn:
         col = conn.db.get_collection(db_config.SESSION_COL)
-        res = col.update(
+        res = col.update_one(
             {'_id': session_id},
             {'$set': data}
         )

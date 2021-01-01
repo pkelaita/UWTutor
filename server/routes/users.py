@@ -42,7 +42,7 @@ def users_update(user_id):
     data = dict(request.get_json())
     with DBConnection() as conn:
         col = conn.db.get_collection(db_config.USER_COL)
-        res = col.update(
+        res = col.update_one(
             {'_id': user_id},
             {'$set': data}
         )
