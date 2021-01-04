@@ -1,3 +1,5 @@
+[![Build Status](https://www.travis-ci.com/pkelaita/UWTutor.svg?branch=master)](https://www.travis-ci.com/pkelaita/UWTutor)
+
 # UWTutor
 
 ### Required Instillations
