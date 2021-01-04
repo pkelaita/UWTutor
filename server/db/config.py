@@ -13,16 +13,16 @@ schemas = {
         'bsonType': 'object',
         'required': [
             '_id',  # NetID
+            'password',
             'name',
-            'auth_token',
             'is_client',
             'is_tutor',
             'course_ids'
         ],
         'properties': {
             '_id': {'bsonType': 'string'},
+            'password': {'bsonType': 'string'},
             'name': {'bsonType': 'string'},
-            'auth_token': {'bsonType': 'string'},
             'is_client': {'bsonType': 'bool'},
             'is_tutor': {'bsonType': 'bool'},
             'course_ids': {

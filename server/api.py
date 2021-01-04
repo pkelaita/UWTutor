@@ -1,7 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 
-from api_utils import tojson
+from utils import tojson
 from db.connection import DBConnection
 import config as api_config
 
@@ -15,7 +15,7 @@ CORS(app)
 
 
 @app.route('/', methods=['GET'])
-def info():
+def root():
     res = {}
     with DBConnection() as conn:
         db = conn.db

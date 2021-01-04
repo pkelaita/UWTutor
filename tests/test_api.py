@@ -28,8 +28,8 @@ def test_users(mock_MongoClient):
     mock_MongoClient.return_value = ret_val
     test_user = {
         '_id': 'kelaita',
+        'password': 'dev',
         'name': 'Pierce Kelaita',
-        'auth_token': 'dev',
         'is_client': True,
         'is_tutor': False,
         'course_ids': ['CSE401', 'CSE331'],
@@ -47,11 +47,14 @@ def test_users(mock_MongoClient):
         # Test read
         response = test_client.get(f'/users/{test_user["_id"]}')
         data = json.loads(response.data.decode('ascii'))
-        assert data == test_user
+        assert {
+            k: test_user[k] for k in test_user.keys() - {'password'}} == {
+            k: data[k] for k in data.keys() - {'password'}
+        }
 
         # Test update
-        test_client.post(
-            f'/users/update/{test_user["_id"]}',
+        test_client.put(
+            f'/users/{test_user["_id"]}',
             data=json.dumps({
                 'name': 'Steely Dan'
             }),
@@ -62,7 +65,7 @@ def test_users(mock_MongoClient):
         assert data['name'] == 'Steely Dan'
 
         # Test delete
-        test_client.get(f'/users/delete/{test_user["_id"]}')
+        test_client.delete(f'/users/{test_user["_id"]}')
         response = test_client.get('/users')
         data = json.loads(response.data.decode('ascii'))
         assert len(data) == 0
@@ -91,7 +94,7 @@ def test_courses(mock_MongoClient):
         assert data[0] == test_course
 
         # Test delete
-        test_client.get(f'/courses/delete/{test_course["_id"]}')
+        test_client.delete(f'/courses/{test_course["_id"]}')
         response = test_client.get('/courses')
         data = json.loads(response.data.decode('ascii'))
         assert len(data) == 0
@@ -125,8 +128,8 @@ def test_sessions(mock_MongoClient):
         assert data == test_session
 
         # Test update
-        test_client.post(
-            f'/sessions/update/{test_session["_id"]}',
+        test_client.put(
+            f'/sessions/{test_session["_id"]}',
             data=json.dumps({
                 'duration': 456.7
             }),
@@ -137,7 +140,7 @@ def test_sessions(mock_MongoClient):
         assert data['duration'] == 456.7
 
         # Test delete
-        test_client.get(f'/sessions/delete/{test_session["_id"]}')
+        test_client.delete(f'/sessions/{test_session["_id"]}')
         response = test_client.get('/sessions')
         data = json.loads(response.data.decode('ascii'))
         assert len(data) == 0
