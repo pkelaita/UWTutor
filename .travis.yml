@@ -1,7 +1,14 @@
-language: python
-python:
-  - 3.6
-  - 3.7
-  - 3.8
-install: make bootstrap
-script: make
+jobs:
+  include:
+    - language: python
+      python:
+        - 3.6
+        - 3.7
+        - 3.8
+      install: make bootstrap
+      script: make
+
+    - language: node_js
+      node_js: 14
+      install: npm i
+      script: npm run lint

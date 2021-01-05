@@ -6,7 +6,6 @@ test: clean lint
 
 lint:
 	@flake8 .
-	@cd client && npm run lint
 
 clean:
 	@find . -type f -name '*.pyc' -delete
@@ -14,4 +13,3 @@ clean:
 bootstrap:
 	@pip install -r requirements.txt
 	@pip install -r requirements-test.txt
-	@cd client && npm i
