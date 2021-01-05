@@ -3,8 +3,10 @@
 # UWTutor
 
 ### Required Instillations
-* python >= 3.6 / pip
 * mongodb-community
+
+* python >= 3.6 / pip
+* NodeJS >= v14.15.3
 
 ### Server Setup
 * `mongod --dbpath [db data location]`
@@ -15,3 +17,4 @@
 
 ### Client Setup
 * `cd client && npm i && npm start`
+
