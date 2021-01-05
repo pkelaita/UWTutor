@@ -14,3 +14,4 @@ clean:
 bootstrap:
 	@pip install -r requirements.txt
 	@pip install -r requirements-test.txt
+	@cd client && npm i
