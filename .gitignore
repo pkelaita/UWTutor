@@ -20,6 +20,7 @@ venv.bak/
 
 # Javascript
 .eslintcache
+jsconfig.json
 
 # IDE stuff
 .idea/
