@@ -4,7 +4,7 @@ import thunk from 'redux-thunk';
 import ExecutionEnvironment from 'fbjs/lib/ExecutionEnvironment';
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-// import reducers from './reducers';
+import reducers from './reducers';
 
 // use thunk middleware for actions involving asynchronous API calls
 const middlewares = [thunk];
@@ -26,7 +26,7 @@ const composeCustom =
 
 export default (initialState) =>
   createStore(
-    null,
+    reducers,
     initialState,
     composeCustom(applyMiddleware(...middlewares)),
   );

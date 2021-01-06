@@ -12,6 +12,8 @@
     "__DEV__": true
   },
   "rules": {
+        "no-unused-vars": "warn",
+        "react/prop-types": "warn", // TODO change this
         "operator-linebreak": "off",
         "implicit-arrow-linebreak": "off"
   }
