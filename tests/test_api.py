@@ -144,3 +144,66 @@ def test_sessions(mock_MongoClient):
         response = test_client.get('/sessions')
         data = json.loads(response.data.decode('ascii'))
         assert len(data) == 0
+
+
+@patch('pymongo.MongoClient')
+def test_login(mock_MongoClient):
+    ret_val = mongomock.MongoClient()
+    ret_val[config.DB_NAME].command = lambda _cmd: None
+    mock_MongoClient.return_value = ret_val
+    test_user = {
+        '_id': 'kelaita',
+        'password': 'abc123!@#',
+        'name': 'Pierce Kelaita',
+        'is_client': True,
+        'is_tutor': False,
+        'course_ids': ['CSE401', 'CSE331'],
+    }
+    with app.test_client() as test_client:
+        test_client.post(
+            '/users',
+            data=json.dumps(test_user),
+            content_type='application/json'
+        )
+
+        # Test valid login
+        res = test_client.post(
+            '/login',
+            data=json.dumps({
+                'id': 'kelaita',
+                'password': 'abc123!@#',
+            }),
+            content_type='application/json'
+        )
+        assert res.status_code == 200
+        data = json.loads(res.data.decode('ascii'))
+        assert data['user_success']
+        assert data['auth_success']
+
+        # Test invalid auth
+        res = test_client.post(
+            '/login',
+            data=json.dumps({
+                'id': 'kelaita',
+                'password': 'not-the-password-123',
+            }),
+            content_type='application/json'
+        )
+        assert res.status_code == 401
+        data = json.loads(res.data.decode('ascii'))
+        assert data['user_success']
+        assert not data['auth_success']
+
+        # Test invalid user
+        res = test_client.post(
+            '/login',
+            data=json.dumps({
+                'id': 'Donald Fagen',
+                'password': 'thefez123',
+            }),
+            content_type='application/json'
+        )
+        assert res.status_code == 401
+        data = json.loads(res.data.decode('ascii'))
+        assert not data['user_success']
+        assert not data['auth_success']

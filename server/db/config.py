@@ -21,7 +21,7 @@ schemas = {
         ],
         'properties': {
             '_id': {'bsonType': 'string'},
-            'password': {'bsonType': 'string'},
+            'password': {'bsonType': 'binData'},
             'name': {'bsonType': 'string'},
             'is_client': {'bsonType': 'bool'},
             'is_tutor': {'bsonType': 'bool'},

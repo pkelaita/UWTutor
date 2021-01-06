@@ -8,6 +8,7 @@ import config as api_config
 from routes.users import users_bp
 from routes.courses import courses_bp
 from routes.sessions import sessions_bp
+from routes.login import login_bp
 
 app = Flask(__name__)
 app.config.from_object('config.BaseConfig')
@@ -29,6 +30,7 @@ def root():
 app.register_blueprint(users_bp)
 app.register_blueprint(courses_bp)
 app.register_blueprint(sessions_bp)
+app.register_blueprint(login_bp)
 
 if __name__ == '__main__':
     app.run(host=api_config.API_HOST, port=api_config.API_PORT)
