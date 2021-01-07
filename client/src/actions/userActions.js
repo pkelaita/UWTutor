@@ -9,6 +9,7 @@ import {
 } from '../constants/actionTypes';
 
 export function logout() {
+  localStorage.removeItem('userId');
   return { type: LOGOUT };
 }
 
@@ -24,21 +25,21 @@ export function login(userId, password) {
         headers: { 'Content-Type': 'application/json' },
       });
       const json = await response.json();
+      const { id, user_success: userSuccess } = json;
 
       // Handle login fail
-      const { id, user_success: userSuccess, auth_success: authSuccess } = json;
-      if (!userSuccess) {
-        console.log(`User ${id} not found.`);
-        dispatch({ type: LOGIN_FAIL });
-        return;
-      }
-      if (!authSuccess) {
-        console.log('Incorrect password.');
+      if (response.status === 401) {
+        const message = userSuccess
+          ? 'Incorrect password'
+          : `User ${id} not found.`;
+        console.log(message);
+        localStorage.removeItem('userId');
         dispatch({ type: LOGIN_FAIL });
         return;
       }
 
       // Handle login success
+      localStorage.setItem('userId', id);
       dispatch({
         type: LOGIN_SUCCESS,
         payload: { id },

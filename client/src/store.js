@@ -24,9 +24,23 @@ if (ExecutionEnvironment.canUseDOM) {
 const composeCustom =
   process.env.NODE_ENV === 'development' ? composeWithDevTools : compose;
 
-export default (initialState) =>
-  createStore(
+export default (initialState) => {
+  // check for logged-in user
+  const persistedUser = localStorage.getItem('userId');
+  const persistedState =
+    persistedUser !== 'null'
+      ? { ...initialState, user: { id: persistedUser, logging_in: false } }
+      : initialState;
+
+  const store = createStore(
     reducers,
-    initialState,
+    persistedState,
     composeCustom(applyMiddleware(...middlewares)),
   );
+
+  // persist logged-in user
+  store.subscribe(() => {
+    localStorage.setItem('userId', store.getState().user.id);
+  });
+  return store;
+};

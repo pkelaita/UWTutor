@@ -5,6 +5,7 @@ import {
   LOGOUT,
 } from '../constants/actionTypes';
 
+// Logged-out user
 const defaultState = {
   id: null,
   logging_in: false,
