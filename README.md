@@ -3,15 +3,15 @@
 # UWTutor
 
 ### Required Instillations
+* Docker / Docker-compose
 * mongodb-community
 * python >= 3.6 / pip
-* NodeJS >= v14.15.3
+* NodeJS >= 14.15.3
 
 ### Server Setup
-* `mongod --dbpath [db data location]`
-    * `alias mdb='/usr/local/bin/mongod --dbpath ~/data/db'`
-    * `mdb`
-* `cd server && make bootstrap && python api.py`
+* `docker-compose build`
+* `docker-compose up`
+* Test: `cd server && make bootstrap && make`
 
 ### Client Setup
 * `cd client && npm i && npm start`

@@ -1,3 +1,6 @@
+import os
+
+
 class BaseConfig:
     TESTING = True
     DEBUG = True
@@ -5,5 +8,5 @@ class BaseConfig:
     SECRET_KEY = 'dev'
 
 
-API_HOST = 'localhost'
-API_PORT = 5000
+API_HOST = '0.0.0.0'
+API_PORT = os.environ['PORT'] if 'PORT' in os.environ else 5000

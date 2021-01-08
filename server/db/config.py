@@ -1,6 +1,8 @@
+import os
+
 UWT_ENV = 'dev'
-DB_HOST = 'localhost'
-DB_PORT = 27017
+DB_HOST = os.environ['DB_HOST'] if 'DB_HOST' in os.environ else 'localhost'
+DB_PORT = int(os.environ['DB_PORT']) if 'DB_PORT' in os.environ else 27017
 DB_NAME = f'uwt-db-{UWT_ENV}'
 USER_COL = f'user-col-{UWT_ENV}'
 COURSE_COL = f'course-col-{UWT_ENV}'
