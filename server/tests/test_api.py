@@ -1,5 +1,5 @@
-from server.db import config
-from server.api import app
+from db import config
+from api import app
 
 import mongomock
 import json
