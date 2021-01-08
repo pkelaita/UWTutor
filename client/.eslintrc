@@ -12,8 +12,11 @@
     "__DEV__": true
   },
   "rules": {
+        // development
         "no-unused-vars": "warn",
-        "react/prop-types": "warn", // TODO change this
+
+        // prettier syntax rules
+        "object-curly-newline": "off",
         "operator-linebreak": "off",
         "implicit-arrow-linebreak": "off"
   }

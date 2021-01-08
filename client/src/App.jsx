@@ -1,42 +1,23 @@
 import React from 'react';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
 
-import * as actionCreators from './actions/userActions';
+import LogoutButton from './components/logoutButton';
+import LoginPanel from './components/loginPanel';
+import RegisterPanel from './components/registerPanel';
 
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-const id = 'kelaita';
-const password = 'asdf123';
-
-function App({ actions }) {
+function App() {
   return (
     <div className="App">
       <header className="App-header">Welcome to UWTutor</header>
-      <button
-        type="button"
-        onClick={async () => {
-          await actions.login(id, password);
-        }}
-      >
-        Login
-      </button>
-      <button
-        type="button"
-        onClick={async () => {
-          await actions.logout();
-        }}
-      >
-        Logout
-      </button>
+      <LogoutButton />
+      <div className="rowC">
+        <LoginPanel />
+        <RegisterPanel />
+      </div>
     </div>
   );
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actionCreators, dispatch),
-  };
-}
-
-export default connect(null, mapDispatchToProps)(App);
+export default App;
