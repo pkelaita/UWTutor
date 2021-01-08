@@ -4,7 +4,6 @@
 
 ### Required Instillations
 * mongodb-community
-
 * python >= 3.6 / pip
 * NodeJS >= v14.15.3
 
@@ -12,9 +11,7 @@
 * `mongod --dbpath [db data location]`
     * `alias mdb='/usr/local/bin/mongod --dbpath ~/data/db'`
     * `mdb`
-* `make bootstrap`
-* `python server/api.py`
+* `cd server && make bootstrap && python api.py`
 
 ### Client Setup
 * `cd client && npm i && npm start`
-
