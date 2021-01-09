@@ -11,5 +11,4 @@ def test_connection(mock_MongoClient):
     ret_val[config.DB_NAME].command = lambda _cmd: None
     mock_MongoClient.return_value = ret_val
     with DBConnection() as conn:
-        assert conn.client.HOST == config.DB_HOST
         assert conn.client.PORT == config.DB_PORT

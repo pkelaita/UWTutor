@@ -5,7 +5,7 @@
 ### Required Instillations
 * Docker / Docker-compose
 * mongodb-community
-* python >= 3.6 / pip
+* python >= 3.9 / pip
 * NodeJS >= 14.15.3
 
 ### Server Setup
