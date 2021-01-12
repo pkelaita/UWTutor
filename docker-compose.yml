@@ -11,6 +11,8 @@ services:
       PORT: 5000
       DB_HOST: db
       DB_PORT: 27017
+      DB_USER: uwt
+      DB_PASS: uwt-pw
     volumes:
       - ./server:/uwt
     command: python api.py
@@ -20,10 +22,14 @@ services:
     container_name: db
     image: mongo:4.4.3-bionic
     restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: uwt
+      MONGO_INITDB_ROOT_PASSWORD: uwt-pw
     volumes:
       - ./docker/mongodb/entrypoint-initdb.d:/docker-entrypoint-initdb.d/
       - /data/db
     ports:
       - 27017:27017
+    command: mongod --auth
     logging:
       driver: none

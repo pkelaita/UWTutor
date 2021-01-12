@@ -1,9 +1,17 @@
 import os
+import urllib
 
-UWT_ENV = 'dev'
 DB_HOST = os.environ['DB_HOST'] if 'DB_HOST' in os.environ else 'localhost'
 DB_PORT = int(os.environ['DB_PORT']) if 'DB_PORT' in os.environ else 27017
-DB_NAME = f'uwt-db-{UWT_ENV}'
+if 'DB_USER' in os.environ and 'DB_PASS' in os.environ:
+    DB_USER = urllib.parse.quote_plus(os.environ['DB_USER'])
+    DB_PASS = urllib.parse.quote_plus(os.environ['DB_PASS'])
+else:
+    DB_USER = None
+    DB_PASS = None
+
+UWT_ENV = 'dev'
+DB_NAME = f'uwt{UWT_ENV}'
 USER_COL = f'user-col-{UWT_ENV}'
 COURSE_COL = f'course-col-{UWT_ENV}'
 SESSION_COL = f'session-col-{UWT_ENV}'

@@ -1,6 +1,7 @@
+import pymongo
+
 from collections import OrderedDict
 from . import config
-import pymongo
 
 
 class DBConnection:
@@ -11,7 +12,15 @@ class DBConnection:
         self.db = None
 
     def __enter__(self):
-        self.client = pymongo.MongoClient(self.host, self.port)
+        url = (
+            f'mongodb://'
+            f'{config.DB_USER}:{config.DB_PASS}@'
+            f'{config.DB_HOST}:{config.DB_PORT}'
+        ) if config.DB_USER and config.DB_PASS else (
+            f'mongodb://'
+            f'{config.DB_HOST}:{config.DB_PORT}'
+        )
+        self.client = pymongo.MongoClient(url)
         self.db = self.client[config.DB_NAME]
         cols = self.db.list_collection_names()
 
