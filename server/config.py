@@ -9,4 +9,4 @@ class BaseConfig:
 
 
 API_HOST = '0.0.0.0'
-API_PORT = os.environ['PORT'] if 'PORT' in os.environ else 5000
+API_PORT = os.environ.get('PORT', 5000)

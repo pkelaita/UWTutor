@@ -1,8 +1,8 @@
 import os
 import urllib
 
-DB_HOST = os.environ['DB_HOST'] if 'DB_HOST' in os.environ else 'localhost'
-DB_PORT = int(os.environ['DB_PORT']) if 'DB_PORT' in os.environ else 27017
+DB_HOST = os.environ.get('DB_HOST', 'localhost')
+DB_PORT = int(os.environ.get('DB_PORT', 27017))
 if 'DB_USER' in os.environ and 'DB_PASS' in os.environ:
     DB_USER = urllib.parse.quote_plus(os.environ['DB_USER'])
     DB_PASS = urllib.parse.quote_plus(os.environ['DB_PASS'])
