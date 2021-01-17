@@ -1,23 +1,34 @@
-import React from 'react';
-
-import LogoutButton from './components/logoutButton';
-import LoginPanel from './components/loginPanel';
-import RegisterPanel from './components/registerPanel';
-
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import React, { Component } from 'react';
 import './App.css';
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Switch,
+  Redirect,
+} from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">Welcome to UWTutor</header>
-      <LogoutButton />
-      <div className="rowC">
-        <LoginPanel />
-        <RegisterPanel />
+import loginPage from './components/loginPage';
+import logout from './components/logoutButton';
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    console.log('hello world');
+  }
+
+  render() {
+    return (
+      <div className="App-intro">
+        <Router>
+          <Switch>
+            <Route exact path="/login" component={loginPage} />
+            <Route exact path="/logout" component={logout} />
+          </Switch>
+        </Router>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;
