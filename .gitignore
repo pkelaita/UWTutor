@@ -21,8 +21,6 @@ venv.bak/
 
 # Javascript
 .eslintcache
-jsconfig.json
-.prettierrc.json
 
 # Client-side
 client/node_modules
