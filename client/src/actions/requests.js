@@ -9,18 +9,19 @@ const port =
     : process.env.REACT_APP_SERVER_PORT;
 const serverURL = `http://${host || 'localhost'}:${port || 5000}`;
 
-export async function requestLogin(id, password) {
+export async function requestLogin(email, password) {
   return fetch(`${serverURL}/login`, {
     method: 'post',
-    body: JSON.stringify({ id, password }),
+    body: JSON.stringify({ email, password }),
     headers: { 'Content-Type': 'application/json' },
   });
 }
 
-export async function requestRegister(_id, password, name) {
+export async function requestRegister(email, userId, password, name) {
   console.log(name);
   const body = {
-    _id,
+    email,
+    user_id: userId,
     password,
     name,
     is_client: false,

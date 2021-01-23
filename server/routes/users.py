@@ -19,6 +19,12 @@ def users():
         # Post data
         data = dict(request.get_json())
         hash_user(data)
+        response = conn.validate(db_config.USER_COL, data)
+        if not response['valid']:
+            response = tojson(response)
+            response.status_code = 401
+            return response
+
         col.insert_one(data)
         return tojson(data)
 
@@ -29,16 +35,22 @@ def users_userid(user_id):
         col = conn.db.get_collection(db_config.USER_COL)
 
         if request.method == 'GET':
-            return tojson(col.find_one({'_id': user_id}))
+            return tojson(col.find_one({'user_id': user_id}))
 
         elif request.method == 'DELETE':
-            return tojson(col.delete_one({'_id': user_id}))
+            return tojson(col.delete_one({'user_id': user_id}))
 
         # Update data
         data = dict(request.get_json())
         hash_user(data)
+        response = conn.validate(db_config.USER_COL, data)
+        if not response['valid']:
+            response = tojson(response)
+            response.status_code = 401
+            return response
+
         col.update_one(
-            {'_id': user_id},
+            {'user_id': user_id},
             {'$set': data}
         )
-        return tojson(col.find_one({'_id': user_id}))
+        return tojson(col.find_one({'user_id': user_id}))

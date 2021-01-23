@@ -11,23 +11,26 @@ endpoint = 'login'
 @login_bp.route(f'/{endpoint}', methods=['POST'])
 def login():
     data = dict(request.get_json())
-    if 'id' not in data or 'password' not in data:
+    if 'email' not in data or 'password' not in data:
         return login_response(None, False, False)
 
     with DBConnection() as conn:
         col = conn.db.get_collection(db_config.USER_COL)
-        user = col.find_one({'_id': data['id']})
+        user = col.find_one({'email': data['email']})
 
         if not user:
-            return login_response(data['id'], False, False)
+            return login_response(data['email'], None, False, False)
 
         auth_success = auth_user(user, data['password'])
-        return login_response(data['id'], True, auth_success)
+        user_id = user['user_id'] if auth_success else None
+
+        return login_response(data['email'], user_id, True, auth_success)
 
 
-def login_response(_id, user_success, auth_success):
+def login_response(email, user_id, user_success, auth_success):
     response = tojson({
-        'id': _id,
+        'email': email,
+        'user_id': user_id,
         'user_success': user_success,
         'auth_success': auth_success,
     })

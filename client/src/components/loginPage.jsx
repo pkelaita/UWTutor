@@ -7,7 +7,7 @@ import RegisterPanel from './registerPanel';
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css';
 import '../App.css';
 
-function loginPage() {
+function LoginPage() {
   return (
     <div className="App">
       <header className="App-header">Welcome to UWTutor</header>
@@ -20,4 +20,4 @@ function loginPage() {
   );
 }
 
-export default loginPage;
+export default LoginPage;

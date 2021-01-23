@@ -8,6 +8,7 @@ import TextField from '@material-ui/core/TextField/index';
 import * as actionCreators from '../actions/userActions';
 
 const defaultState = {
+  emailInput: '',
   idInput: '',
   pwInput: '',
   nameInput: 'Test Value',
@@ -20,45 +21,52 @@ class RegisterPanel extends Component {
   }
 
   render() {
-    const { idInput, pwInput, nameInput } = this.state;
+    const { emailInput, idInput, pwInput, nameInput } = this.state;
     const { actions } = this.props;
     return (
-      <>
-        <div className="panel-outer">
-          <div className="panel-inner">
-            <form>
-              <h4>Register</h4>
-              <div className="form-group">
-                <TextField
-                  id="id-input"
-                  label="Username"
-                  variant="outlined"
-                  value={idInput}
-                  onChange={(e) => this.setState({ idInput: e.target.value })}
-                />
-              </div>
-              <div className="form-group">
-                <TextField
-                  id="pw-input"
-                  label="Password"
-                  variant="outlined"
-                  value={pwInput}
-                  onChange={(e) => this.setState({ pwInput: e.target.value })}
-                />
-              </div>
-              <Button
-                variant="contained"
-                onClick={() => {
-                  console.log(nameInput);
-                  actions.register(idInput, pwInput, nameInput);
-                }}
-              >
-                Register
-              </Button>
-            </form>
-          </div>
+      <div className="panel-outer">
+        <div className="panel-inner">
+          <form>
+            <h4>Register</h4>
+            <div className="form-group">
+              <TextField
+                id="email-input"
+                label="Email"
+                variant="outlined"
+                value={emailInput}
+                onChange={(e) => this.setState({ emailInput: e.target.value })}
+              />
+            </div>
+            <div className="form-group">
+              <TextField
+                id="id-input"
+                label="Username"
+                variant="outlined"
+                value={idInput}
+                onChange={(e) => this.setState({ idInput: e.target.value })}
+              />
+            </div>
+            <div className="form-group">
+              <TextField
+                id="pw-input"
+                label="Password"
+                variant="outlined"
+                value={pwInput}
+                onChange={(e) => this.setState({ pwInput: e.target.value })}
+              />
+            </div>
+            <Button
+              variant="contained"
+              onClick={() => {
+                console.log(nameInput);
+                actions.register(emailInput, idInput, pwInput, nameInput);
+              }}
+            >
+              Register
+            </Button>
+          </form>
         </div>
-      </>
+      </div>
     );
   }
 }

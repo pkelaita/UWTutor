@@ -20,9 +20,9 @@ export default (state = defaultState, action) => {
       };
     }
     case LOGIN_SUCCESS: {
-      const { id } = action.payload;
+      const { userId } = action.payload;
       return {
-        id,
+        id: userId,
         logging_in: false,
       };
     }

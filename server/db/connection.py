@@ -12,12 +12,14 @@ class DBConnection:
         self.db = None
 
     def __enter__(self):
+
+        # Open a DB connection
         url = (
-            f'mongodb://'
+            f'{config.PROTOCOL}://'
             f'{config.DB_USER}:{config.DB_PASS}@'
             f'{config.DB_HOST}:{config.DB_PORT}'
         ) if config.DB_USER and config.DB_PASS else (
-            f'mongodb://'
+            f'{config.PROTOCOL}://'
             f'{config.DB_HOST}:{config.DB_PORT}'
         )
         self.client = pymongo.MongoClient(url)
@@ -36,6 +38,23 @@ class DBConnection:
                 self.db.command(cmd)
 
         return self
+
+    def validate(self, colname, document):
+        assert colname in config.collections
+        result = {'valid': False}
+
+        # Unique fields check
+        for field in config.unique_fields[colname]:
+            if field in document:
+                col = self.db.get_collection(colname)
+                exists = col.find_one({field: document[field]})
+                if exists is not None:
+                    result['error'] = config.DUPLICATE_ERROR
+                    result['cause'] = document[field]
+                    return result
+
+        result['valid'] = True
+        return result
 
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.client.close()

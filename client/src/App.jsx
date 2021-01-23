@@ -1,15 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
 
-import loginPage from './components/loginPage';
-import logout from './components/logoutButton';
+import LoginPage from './components/loginPage';
 
 class App extends Component {
   constructor(props) {
@@ -20,12 +12,7 @@ class App extends Component {
   render() {
     return (
       <div className="App-intro">
-        <Router>
-          <Switch>
-            <Route exact path="/login" component={loginPage} />
-            <Route exact path="/logout" component={logout} />
-          </Switch>
-        </Router>
+        <LoginPage />
       </div>
     );
   }

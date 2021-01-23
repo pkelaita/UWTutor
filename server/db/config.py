@@ -1,6 +1,7 @@
 import os
 import urllib
 
+PROTOCOL = 'mongodb'
 DB_HOST = os.environ.get('DB_HOST', 'localhost')
 DB_PORT = int(os.environ.get('DB_PORT', 27017))
 if 'DB_USER' in os.environ and 'DB_PASS' in os.environ:
@@ -12,6 +13,7 @@ else:
 
 UWT_ENV = 'dev'
 DB_NAME = f'uwt{UWT_ENV}'
+
 USER_COL = f'user-col-{UWT_ENV}'
 COURSE_COL = f'course-col-{UWT_ENV}'
 SESSION_COL = f'session-col-{UWT_ENV}'
@@ -22,7 +24,8 @@ schemas = {
     USER_COL: {'$jsonSchema': {
         'bsonType': 'object',
         'required': [
-            '_id',  # NetID
+            'email',
+            'user_id',
             'password',
             'name',
             'is_client',
@@ -30,7 +33,8 @@ schemas = {
             'course_ids'
         ],
         'properties': {
-            '_id': {'bsonType': 'string'},
+            'email': {'bsonType': 'string'},
+            'user_id': {'bsonType': 'string'},
             'password': {'bsonType': 'binData'},
             'name': {'bsonType': 'string'},
             'is_client': {'bsonType': 'bool'},
@@ -44,7 +48,7 @@ schemas = {
     }},
     COURSE_COL: {'$jsonSchema': {
         'bsonType': 'object',
-        'required': ['_id'],  # Course Name
+        'required': ['_id'],  # TODO add course id
         'properties': {
             '_id': {'bsonType': 'string'},
         },
@@ -65,3 +69,12 @@ schemas = {
         },
     }},
 }
+
+unique_fields = {
+    USER_COL: ['email', 'user_id'],
+    COURSE_COL: [],  # TODO add course id
+    SESSION_COL: [],
+}
+
+# Errors
+DUPLICATE_ERROR = 'DUPLICATE_ERROR'
