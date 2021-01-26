@@ -18,6 +18,7 @@ venv.bak/
 
 # Test coverage
 .coverage
+htmlcov/
 
 # Javascript
 .eslintcache

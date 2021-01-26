@@ -2,7 +2,15 @@
 .DEFAULT_GOAL := test
 
 test: clean lint
-	@python -m pytest tests/ --cov=./ -p no:cacheprovider -W ignore::DeprecationWarning
+	@python -m pytest tests/ --cov=./ \
+		-p no:cacheprovider \
+		-W ignore::DeprecationWarning
+
+cov: clean lint
+	@python -m pytest tests/ --cov=./ \
+		--cov-report=html \
+		-p no:cacheprovider \
+		-W ignore::DeprecationWarning
 
 lint:
 	@flake8 .

@@ -11,16 +11,16 @@ else:
     DB_USER = None
     DB_PASS = None
 
-UWT_ENV = 'dev'
-DB_NAME = f'uwt{UWT_ENV}'
+_UWT_ENV = 'dev'
+DB_NAME = f'uwt{_UWT_ENV}'
 
-USER_COL = f'user-col-{UWT_ENV}'
-COURSE_COL = f'course-col-{UWT_ENV}'
-SESSION_COL = f'session-col-{UWT_ENV}'
+USER_COL = f'user-col-{_UWT_ENV}'
+COURSE_COL = f'course-col-{_UWT_ENV}'
+SESSION_COL = f'session-col-{_UWT_ENV}'
 
-collections = {USER_COL, COURSE_COL, SESSION_COL}
+COLLECTIONS = {USER_COL, COURSE_COL, SESSION_COL}
 
-schemas = {
+SCHEMAS = {
     USER_COL: {'$jsonSchema': {
         'bsonType': 'object',
         'required': [
@@ -70,7 +70,7 @@ schemas = {
     }},
 }
 
-unique_fields = {
+UNIQUE_FIELDS = {
     USER_COL: ['email', 'user_id'],
     COURSE_COL: [],  # TODO add course id
     SESSION_COL: [],

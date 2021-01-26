@@ -17,7 +17,7 @@ def test_root(mock_MongoClient):
         assert response.status_code == 200
         data = json.loads(response.data.decode('ascii'))
         assert data['db_port'] == config.DB_PORT
-        assert set(data['collections']) == config.collections
+        assert set(data['collections']) == config.COLLECTIONS
 
 
 @patch('pymongo.MongoClient')

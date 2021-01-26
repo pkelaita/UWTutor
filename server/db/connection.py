@@ -27,24 +27,22 @@ class DBConnection:
         cols = self.db.list_collection_names()
 
         # Ensure collections exist
-        for colname in config.collections:
+        for colname in config.COLLECTIONS:
             if colname not in cols:
                 self.db.create_collection(colname)
                 cmd = OrderedDict([
                     ('collMod', colname),
-                    ('validator', config.schemas[colname]),
-                    ('validationLevel', 'moderate'),
+                    ('validator', config.SCHEMAS[colname]),
                 ])
                 self.db.command(cmd)
 
         return self
 
-    def validate(self, colname, document):
-        assert colname in config.collections
+    def validate_unique(self, colname, document):
         result = {'valid': False}
 
         # Unique fields check
-        for field in config.unique_fields[colname]:
+        for field in config.UNIQUE_FIELDS[colname]:
             if field in document:
                 col = self.db.get_collection(colname)
                 exists = col.find_one({field: document[field]})

@@ -19,7 +19,7 @@ def users():
         # Post data
         data = dict(request.get_json())
         hash_user(data)
-        response = conn.validate(db_config.USER_COL, data)
+        response = conn.validate_unique(db_config.USER_COL, data)
         if not response['valid']:
             response = tojson(response)
             response.status_code = 401
@@ -43,7 +43,7 @@ def users_userid(user_id):
         # Update data
         data = dict(request.get_json())
         hash_user(data)
-        response = conn.validate(db_config.USER_COL, data)
+        response = conn.validate_unique(db_config.USER_COL, data)
         if not response['valid']:
             response = tojson(response)
             response.status_code = 401
