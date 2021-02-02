@@ -9,4 +9,3 @@ COPY ./Makefile  /uwt/
 RUN make bootstrap
 
 COPY ./ /uwt/
-RUN make test

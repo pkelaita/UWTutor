@@ -1,10 +1,22 @@
 jobs:
   include:
+
     - language: python
       python: 3.9
-      before_install: cd server
-      install: make bootstrap
-      script: make
+      services:
+        - docker
+      env:
+        - DOCKER_COMPOSE_VERSION=1.28.2
+      before_install:
+        - sudo rm /usr/local/bin/docker-compose
+        - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+        - chmod +x docker-compose
+        - sudo mv docker-compose /usr/local/bin
+        - docker-compose build server
+      script: docker-compose run server-tests
+      after_script:
+        - docker-compose down
+
     - language: node_js
       node_js: 14
       before_install: cd client

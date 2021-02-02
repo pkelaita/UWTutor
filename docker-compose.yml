@@ -18,6 +18,16 @@ services:
     command: python api.py
     links:
       - db
+  server-tests:
+    container_name: server-tests
+    image: python:3.9.1
+    working_dir: /uwt
+    build: ./server
+    volumes:
+      - ./server:/uwt
+    command: make test
+    links:
+      - server
   db:
     container_name: db
     image: mongo:4.4.3-bionic

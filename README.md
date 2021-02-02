@@ -9,12 +9,9 @@
 * NodeJS >= 14.15.3
 
 ### Server Setup
-* Build/Test: `docker-compose build`
-* Run: `docker-compose up`
-* Test Locally
-  * `cd server`
-  * Reccommended: activate a virtual environment
-  * `make bootstrap && make`
+* Build: `docker-compose build`
+* Run: `docker-compose up server`
+* Test: `docker-compose run server-tests`
 
 ### Client Setup
 * `cd client && npm i && npm start`
