@@ -209,3 +209,82 @@ def test_login(mock_MongoClient):
         data = json.loads(res.data.decode('ascii'))
         assert not data['user_success']
         assert not data['auth_success']
+
+
+@patch('pymongo.MongoClient')
+def test_vadidate_unique(mock_MongoClient):
+    ret_val = mongomock.MongoClient()
+    ret_val[config.DB_NAME].command = lambda _cmd: None
+    mock_MongoClient.return_value = ret_val
+    test_user_1 = {
+        'email': 'donald_fagen@uw.edu',
+        'user_id': 'don',
+        'password': 'thefez123',
+        'name': 'Donald Fagen',
+        'is_client': True,
+        'is_tutor': False,
+        'course_ids': ['CSE401', 'CSE331'],
+    }
+    test_user_2 = {
+        'email': 'walter_becker@uw.edu',
+        'user_id': 'walt',
+        'password': 'anymajord00d!',
+        'name': 'Walter Becker',
+        'is_client': True,
+        'is_tutor': False,
+        'course_ids': ['CSE401', 'CSE331'],
+    }
+    with app.test_client() as test_client:
+        test_client.post(
+            '/users',
+            data=json.dumps(test_user_1),
+            content_type='application/json'
+        )
+
+        # Add and remove valid user
+        res = test_client.post(
+            '/users',
+            data=json.dumps(test_user_2),
+            content_type='application/json'
+        )
+        assert res.status_code == 200
+        test_client.delete(f'/users/{test_user_2["user_id"]}')
+
+        # Ensure invalid users are not added
+        for field in config.UNIQUE_FIELDS[config.USER_COL]:
+            print('running', field)
+            bad_user = test_user_2.copy()
+            bad_user[field] = test_user_1[field]
+            res = test_client.post(
+                '/users',
+                data=json.dumps(bad_user),
+                content_type='application/json'
+            )
+
+            # Ensure error
+            assert res.status_code == 401
+            data = json.loads(res.data.decode('ascii'))
+            assert data['error'] == config.DUPLICATE_ERROR
+            assert data['cause'] == bad_user[field]
+
+            # Ensure not added to DB
+            res = test_client.get('/users')
+            data = json.loads(res.data.decode('ascii'))
+            assert len(data) == 1
+
+            # Ensure updates are validated
+            test_client.post(
+                '/users',
+                data=json.dumps(test_user_2),
+                content_type='application/json'
+            )
+            res = test_client.put(
+                f'/users/{test_user_2["user_id"]}',
+                data=json.dumps({field: test_user_1[field]}),
+                content_type='application/json'
+            )
+            assert res.status_code == 401
+            data = json.loads(res.data.decode('ascii'))
+            assert data['error'] == config.DUPLICATE_ERROR
+            assert data['cause'] == test_user_1[field]
+            test_client.delete(f'/users/{test_user_2["user_id"]}')
