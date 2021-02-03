@@ -64,7 +64,19 @@ html,
 }
 
 .logout-button {
-   position: absolute;
+   justify-content: center;
+   width: 120px;
+   margin: auto;
+   /* position: absolute;
    top: 20px;
-   right: 20px;
+   right: 20px; */
+}
+
+.class-button {
+  justify-content: right;
+  /* width: 120px; */
+}
+
+.nested {
+  margin-left: 40%;
 }
